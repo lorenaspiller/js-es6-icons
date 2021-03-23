@@ -124,11 +124,57 @@ const icons = [
 
 const iconsHtml = $(".icons");
 
-icons.forEach((icon) => {
-  const {name, family, prefix} = icon;
+// icons.forEach((icon) => {
+//   const {name, family, prefix} = icon;
+//   const elementHtml = `
+//   <div>
+//     <i class="${family} ${prefix}${name}"></i>
+//     <div class="title">${name}</div>
+//   </div>
+//   `;
+//   iconsHtml.append(elementHtml);
+// });
+
+// Milestone 2
+// Coloriamo le icone per tipo
+
+const colorsMap = [
+  {
+    category : "food",
+    color: "lightblue"
+  },
+  {
+    category : "beverage",
+    color: "orange"
+  },
+  {
+    category : "animal",
+    color: "lime"
+  }
+];
+
+
+const iconsColored = icons.map((icon) => {
+  let itemColor = "";
+
+  colorsMap.forEach((item, i) => {
+    if (icon.category == item.category) {
+      itemColor = item.color;
+    }
+  });
+
+  icon.color = itemColor;
+
+  return icon;
+});
+
+console.log(icons);
+
+icons.forEach((icon, i) => {
+  const {name, family, prefix, color} = icon;
   const elementHtml = `
   <div>
-    <i class="${family} ${prefix}${name}"></i>
+    <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
     <div class="title">${name}</div>
   </div>
   `;
