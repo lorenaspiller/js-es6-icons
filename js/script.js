@@ -135,6 +135,10 @@ const iconsHtml = $(".icons");
 //   iconsHtml.append(elementHtml);
 // });
 
+
+
+
+
 // Milestone 2
 // Coloriamo le icone per tipo
 
@@ -170,7 +174,7 @@ const iconsColored = icons.map((icon) => {
 
 console.log(icons);
 
-icons.forEach((icon, i) => {
+iconsColored.forEach((icon, i) => {
   const {name, family, prefix, color} = icon;
   const elementHtml = `
   <div>
@@ -179,4 +183,54 @@ icons.forEach((icon, i) => {
   </div>
   `;
   iconsHtml.append(elementHtml);
+});
+
+
+
+
+
+
+// Milestone 3
+// Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+
+
+const categories = [];
+
+icons.forEach((icon, i) => {
+  if (categories.includes(icon.category) == false) {
+    categories.push(icon.category);
+  }
+});
+
+console.log(categories);
+
+const select = $("#type");
+categories.forEach((item, i) => {
+  select.append(`<option value="${item}">${item}</option>`);
+});
+
+select.change(function() {
+  const selected = $(this).val();
+
+
+  let itemsFiltered = iconsColored.filter((item) => selected == item.category);
+
+  if (itemsFiltered.length == 0) {
+    itemsFiltered = iconsColored;
+  }
+
+
+  iconsHtml.html("");
+
+  itemsFiltered.forEach((icon, i) => {
+    const {name, family, prefix, color} = icon;
+    const elementHtml = `
+    <div>
+      <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
+      <div class="title">${name}</div>
+    </div>
+    `;
+    iconsHtml.append(elementHtml);
+  });
+
 });
